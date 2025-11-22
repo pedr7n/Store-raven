@@ -1,30 +1,82 @@
-const API = fetch(http://localhost:8080/products);
+const API = "/products";
 
-async function load() {
+// ---------------------
+// LOAD ALL PRODUCTS
+// ---------------------
+async function loadProducts() {
     const r = await fetch(API);
     const products = await r.json();
 
-    const list = document.getDocumentById("list");
-    list.innerHTML = "";
+    const tbody = document.getElementById("table-body");
+    tbody.innerHTML = "";
 
-    products.forEach(t = {
-    const li = document.createElement("li");
-    li.textContent = t.description;
-    list.appendChild(li);
+    products.forEach(p => {
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>${p.id}</td>
+            <td>${p.name}</td>
+            <td>${p.value}</td>
+            <td>
+                <button onclick="editProduct('${p.id}', '${p.name}', '${p.value}')">Edit</button>
+                <button onclick="deleteProduct('${p.id}')">Delete</button>
+            </td>
+        `;
+
+        tbody.appendChild(tr);
     });
-
-
 }
 
-document.getElementById("add").addEventListener("click", async () => {
-    const text = document.getElementById("texto").value;
+// ---------------------
+// CREATE PRODUCT
+// ---------------------
+document.getElementById("create").addEventListener("click", async () => {
+    const name = document.getElementById("name").value;
+    const value = document.getElementById("value").value;
+
+    if(!name || !value){
+        alert("Fill all fields");
+        return;
+    }
+
     await fetch(API, {
-    method: POST,
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify{ description: text })
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, value })
     });
 
-    load();
+    loadProducts();
+});
+
+// ---------------------
+// EDIT PRODUCT
+// ---------------------
+async function editProduct(id, oldName, oldValue) {
+
+    const name = prompt("New name:", oldName);
+    const value = prompt("New value:", oldValue);
+
+    if(name === null || value === null) return; // cancelou
+
+    await fetch(`${API}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, value })
+    });
+
+    loadProducts();
 }
 
-load();
+// ---------------------
+// DELETE PRODUCT
+// ---------------------
+async function deleteProduct(id) {
+    await fetch(`${API}/${id}`, {
+        method: "DELETE"
+    });
+
+    loadProducts();
+}
+
+// FIRST LOAD
+loadProducts();

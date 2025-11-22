@@ -1,6 +1,31 @@
-<input id="texto" placeholder="New Product">
-<button id="add">Add</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+</head>
+<body>
 
-<ul id="list"></ul>
+<h1>Products CRUD</h1>
+
+<h3>Create Product</h3>
+<input id="name" placeholder="Product name">
+<input id="value" placeholder="Product value">
+<button id="create">Create</button>
+
+<h3>Products List</h3>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Value</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+</table>
 
 <script src="app.js"></script>
+</body>
+</html>
