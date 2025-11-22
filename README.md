@@ -1,5 +1,5 @@
 ## RavenDB + Java Example
-A simple CRUD API using RavenDB and Spring Boot, showing how to integrate a document-oriented database in a Java project.
+A Store made with Spring boot, javascript and RavenDB!
 
 ## Tech Stack
 
