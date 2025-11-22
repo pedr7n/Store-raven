@@ -34,6 +34,7 @@ Docker
 | Method   | Endpoint      | Description       |
 | -------- | ------------- | ----------------- |
 | `GET`    | `/products`      | List all products    |
+| `GET`    | `/products/{id}` | List a product by id |
 | `POST`   | `/products`      | Create a new product |
 | `PUT`    | `/products/{id}` | Update a product     |
 | `DELETE` | `/products/{id}` | Delete a product     |
